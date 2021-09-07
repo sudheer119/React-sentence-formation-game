@@ -1,17 +1,39 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import  {useState} from "react";
+import ReactDOM from "react-dom";
+import Diff from "./Diff";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+function  App() {
+    const[data,setData]=useState(null);
+    const [print,setPrint]=useState(false);
+    function getData(val)
+    {
+      setData(val.target.value)
+      setPrint(false)
+    }
+    return (
+      <main>
+        <h2>Word diff</h2>
+         <h1>capital city capital city of India of Maharashtra New Delhi is the is Mumbai national and</h1>
+        <br></br>
+         <input type='text' onChange={getData} Style="width:1000px;height:100px"/>
+         <br></br>
+         <br></br>
+        <button onClick={()=>setPrint(true)}>Submit</button>
+        <br></br><br></br>
+        {
+          print?
+          <Diff
+          string1="New Delhi is the national capital city of India and The capital city of Maharashtra is Mumbai"
+          string2={data}
+          mode="words"
+        />
+          :null
+        }
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+      </main>
+    );
+  }
+
+
+ReactDOM.render(<App />, document.getElementById("root"));
